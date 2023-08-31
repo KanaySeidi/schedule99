@@ -21,4 +21,4 @@ deploy:
     - pip3 install awscli
     - aws s3 sync ./build s3://your-bucket-name --delete
   only:
-    - master # Измените на имя вашей ветки
+    - main
