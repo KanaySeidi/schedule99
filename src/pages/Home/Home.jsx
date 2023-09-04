@@ -23,6 +23,11 @@ const Home = () => {
     boxShadow: "0 0 10px rgba(0,0,0,0.6)",
   };
 
+  if (window.matchMedia("(max-device-width: 760px)").matches) {
+    selectGroup.width = "100px";
+    selectGroup.fontSize = "15px";
+  }
+
   const menuItemStyle = {
     color: "black",
     fontSize: "22px",
@@ -30,6 +35,10 @@ const Home = () => {
     fontFamily: "Chalk cyrillic freehand",
     fontWeight: "normal",
   };
+
+  if (window.matchMedia("(max-device-width: 760px)").matches) {
+    menuItemStyle.fontSize = "10px";
+  }
 
   return (
     <>
