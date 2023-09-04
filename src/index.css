@@ -1,3 +1,4 @@
+@import url(https://db.onlinewebfonts.com/c/1f5f55b3d3aec10f3a0de0287a6bfc65?family=Chalk+cyrillic+freehand);
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -17,5 +18,6 @@ code {
   list-style-type: none;
   text-align: center;
   box-sizing: border-box;
+  font-family: "Chalk cyrillic freehand";
 }
 
