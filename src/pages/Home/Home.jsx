@@ -93,7 +93,12 @@ const Home = () => {
             </div>
             <div className={home.schedule}>
               <div className={home.lesson}>1-2</div>
-              <div className={home.time}>8:00-9:35</div>
+              <div className={home.time}>
+                8:00-9:35
+                <div class={home.progressLoader}>
+                  <div class={home.progress}></div>
+                </div>
+              </div>
               <div className={home.subject}>ОБиП</div>
               <div className={home.mentor}>Оморов А.А</div>
               <div className={home.room}>213</div>
