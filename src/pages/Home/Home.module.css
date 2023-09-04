@@ -97,19 +97,33 @@
     border-radius: 8px; 
   }
 
-  @media screen and (max-device-width: 652px ) {
+  @media screen and (max-device-width: 768px ) {
     .section {
         width: 100%;
         height: 100%;
         position: relative;
     }
+
     .container {
-        width: 500px;
+        width: 748px;
+        height: 100%;
         margin: 0 auto;
+        margin-bottom: 20px;
         padding: 10px; 
         position: relative;
         z-index: 1; 
       }
+
+      .mainBG {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+
       h3 {
         color: #fff;
         font-size: 30px; 
@@ -140,6 +154,32 @@
         color: #fff; 
         padding: 10px 20px; 
         border-radius: 5px; 
+      }
+      .info {
+        width: 100%;
+        max-width: 1000px; 
+        margin: 0 auto;
+        margin-bottom: 20px;
+        padding: 10px; 
+        border: 1px solid gray;
+        background-color: rgba(0, 0, 0, 0.3); 
+        border-radius: 5px; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        color: #fff; 
+      }
+
+      .infoDay{
+        font-size: 25px;
+      }
+
+      .schedule {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0; 
+        font-size: 20px;
+        color: #fff;
+        flex-wrap: wrap;
+        gap: 5px;
       }
   }
 

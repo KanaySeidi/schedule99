@@ -23,7 +23,7 @@ const Home = () => {
     boxShadow: "0 0 10px rgba(0,0,0,0.6)",
   };
 
-  if (window.matchMedia("(max-device-width: 652px)").matches) {
+  if (window.matchMedia("(max-device-width: 768px)").matches) {
     selectGroup.width = "140px";
     selectGroup.fontSize = "15px";
   }
@@ -41,7 +41,7 @@ const Home = () => {
     fontWeight: "normal",
   };
 
-  if (window.matchMedia("(max-device-width: 651px)").matches) {
+  if (window.matchMedia("(max-device-width: 768px)").matches) {
     menuItemStyle.fontSize = "20px";
   }
 
