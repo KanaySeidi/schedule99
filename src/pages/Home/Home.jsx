@@ -1,16 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import home from "./Home.module.css";
 import doska from "../../assets/img/blackboard.jpg";
 import CityTime from "../../components/CityTime";
 import { MenuItem, Select } from "@mui/material";
+import { getSchedule } from "../../api/getSchedule";
+import { useDispatch, useSelector } from "react-redux";
 
 const Home = () => {
   const [selectedGroup, setSelectedGroup] = useState("Группа");
+  const [id, setId] = useState();
+
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.schedule.data);
+  console.log(data);
+
+  const dayOfWeek = [
+    "Понедельник",
+    "Вторник",
+    "Среда",
+    "Четверг",
+    "Пятница",
+    "Суббота",
+  ];
 
   const handleGroupChange = (event) => {
     const newSelectedGroup = event.target.value;
     setSelectedGroup(newSelectedGroup);
   };
+
+  useEffect(() => {
+    if (id !== undefined) {
+      dispatch(getSchedule({ groupId: id }));
+      console.log("Меня нажали");
+    }
+  }, [id]);
 
   const selectGroup = {
     color: "white",
@@ -59,8 +82,8 @@ const Home = () => {
             <CityTime city="Бишкек" timeZoneOffset={0} />
           </div>
           <div className={home.txt}>
-            <p className={home.group1}>Выберите группу</p>
-            <p className={home.group1}>
+            <div className={home.group1}>Выберите группу</div>
+            <div className={home.group1}>
               <Select
                 style={selectGroup}
                 value={selectedGroup}
@@ -70,39 +93,69 @@ const Home = () => {
                 <MenuItem style={menuItemStyle} value="Группа" disabled>
                   Группа
                 </MenuItem>
-                <MenuItem style={menuItemStyle} value="ВП 1/2 - 23">
+                <MenuItem
+                  onClick={(e) => setId(1)}
+                  style={menuItemStyle}
+                  value="ВП 1/2 - 23"
+                >
                   ВП 1/2 - 23
                 </MenuItem>
-                <MenuItem style={menuItemStyle} value="ВП 3/4 - 23">
+                <MenuItem
+                  onClick={(e) => setId(2)}
+                  style={menuItemStyle}
+                  value="ВП 3/4 - 23"
+                >
                   ВП 3/4 - 23
                 </MenuItem>
+
                 <MenuItem style={menuItemStyle} value="ВП 5/6 - 23">
                   ВП 5/6 - 23
                 </MenuItem>
               </Select>
-            </p>
+            </div>
           </div>
           <div className={home.info}>
-            <p className={home.infoDay}>Суббота 2.09</p>
-            <div className={home.schedule}>
-              <div className={home.lesson}>УРОК</div>
-              <div className={home.time}>ВРЕМЯ</div>
-              <div className={home.subject}>ПРЕДМЕТ</div>
-              <div className={home.mentor}>ПРЕПОДАВАТЕЛЬ</div>
-              <div className={home.room}>КАБИНЕТ</div>
-            </div>
-            <div className={home.schedule}>
-              <div className={home.lesson}>1-2</div>
-              <div className={home.time}>
-                8:00-9:35
-                <div class={home.progressLoader}>
-                  <div class={home.progress}></div>
+            {dayOfWeek.map((day) => {
+              const filteredData = data.filter((item) => item.day === day);
+              const sortedData = [...filteredData].sort((a, b) =>
+                a.lesson_time.lessons.localeCompare(b.lesson_time.lessons)
+              );
+              return (
+                <div key={day}>
+                  {sortedData.map((item, index) => (
+                    <div key={item.id}>
+                      <div>
+                        <p className={home.infoDay}>{item.day}</p>
+                      </div>
+                      {index === 0 && (
+                        <div className={home.schedule}>
+                          <div className={home.lesson}>УРОК</div>
+                          <div className={home.time}>ВРЕМЯ</div>
+                          <div className={home.subject}>ПРЕДМЕТ</div>
+                          <div className={home.mentor}>ПРЕПОДАВАТЕЛЬ</div>
+                          <div className={home.room}>КАБИНЕТ</div>
+                        </div>
+                      )}
+                      <div className={home.schedule}>
+                        <div className={home.lesson}>
+                          {item.lesson_time.lessons}
+                        </div>
+                        <div className={home.time}>{item.lesson_time.time}</div>
+                        <div className={home.subject}>{item.subject.title}</div>
+                        <div className={home.mentor}>
+                          {item.teacher
+                            .map((teacher) => teacher.fullname)
+                            .join(", ")}
+                        </div>
+                        <div className={home.room}>
+                          {item.classroom.map((room) => room.title).join(", ")}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-              <div className={home.subject}>ОБиП</div>
-              <div className={home.mentor}>Оморов А.А</div>
-              <div className={home.room}>213</div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </div>

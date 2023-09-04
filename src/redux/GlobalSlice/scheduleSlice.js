@@ -5,7 +5,7 @@ const scheduleSlice = createSlice({
   name: "getSchedule",
   initialState: {
     isLoading: "default",
-    message: null,
+    message: "",
     data: [],
   },
   reducers: {},
