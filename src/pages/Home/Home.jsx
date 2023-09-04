@@ -36,7 +36,7 @@ const Home = () => {
     fontWeight: "normal",
   };
 
-  if (window.matchMedia("(max-device-width: 760px)").matches) {
+  if (window.matchMedia("(max-device-width: 400px)").matches) {
     menuItemStyle.fontSize = "10px";
   }
 
