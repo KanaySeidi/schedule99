@@ -47,6 +47,7 @@
     border-radius: 5px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
     color: #fff; 
+    
   }
   
   .infoDay{
@@ -57,13 +58,14 @@
     color: #fff;    
     display: flex;
     flex-direction: row;
-    font-size: 40px;
+    font-size: 30px;
   }
 
 
   .schedule {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px 0; 
     font-size: 30px;
     color: #fff;
@@ -85,7 +87,7 @@
     border-right: none;
   }
 
- 
+  
   
   h3 {
     color: #fff;
@@ -98,7 +100,7 @@
   }
 
   .time{
-    font-size: 45px;
+    font-size: 40px;
   }
 
   @media screen and (max-device-width: 768px ) {
@@ -179,6 +181,7 @@
       .schedule {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         padding: 10px 0; 
         font-size: 20px;
         color: #fff;

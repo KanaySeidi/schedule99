@@ -5,6 +5,7 @@ import CityTime from "../../components/CityTime";
 import { MenuItem, Select } from "@mui/material";
 import { getSchedule } from "../../api/getSchedule";
 import { useDispatch, useSelector } from "react-redux";
+import { getIdGroup } from "../../api/getIdGroup";
 
 const Home = () => {
   const [selectedGroup, setSelectedGroup] = useState("Группа");
@@ -12,7 +13,8 @@ const Home = () => {
 
   const dispatch = useDispatch();
   const data = useSelector((state) => state.schedule.data);
-  console.log(data);
+  const idGroup = useSelector((state) => state.idGroup.data);
+  console.log(idGroup);
 
   const dayOfWeek = [
     "Понедельник",
@@ -29,9 +31,12 @@ const Home = () => {
   };
 
   useEffect(() => {
+    dispatch(getIdGroup());
+  }, []);
+
+  useEffect(() => {
     if (id !== undefined) {
       dispatch(getSchedule({ groupId: id }));
-      console.log("Меня нажали");
     }
   }, [id]);
 
@@ -78,6 +83,7 @@ const Home = () => {
         <img className={home.mainBG} src={doska} alt="" />
         <div className={home.container}>
           <h3>Расписание учебного заведения</h3>
+
           <div className={home.currentTime}>
             <CityTime city="Бишкек" timeZoneOffset={0} />
           </div>
@@ -93,24 +99,16 @@ const Home = () => {
                 <MenuItem style={menuItemStyle} value="Группа" disabled>
                   Группа
                 </MenuItem>
-                <MenuItem
-                  onClick={(e) => setId(1)}
-                  style={menuItemStyle}
-                  value="ВП 1/2 - 23"
-                >
-                  ВП 1/2 - 23
-                </MenuItem>
-                <MenuItem
-                  onClick={(e) => setId(2)}
-                  style={menuItemStyle}
-                  value="ВП 3/4 - 23"
-                >
-                  ВП 3/4 - 23
-                </MenuItem>
-
-                <MenuItem style={menuItemStyle} value="ВП 5/6 - 23">
-                  ВП 5/6 - 23
-                </MenuItem>
+                {idGroup.map((item) => (
+                  <MenuItem
+                    key={item.id}
+                    onClick={() => setId(item.id)}
+                    style={menuItemStyle}
+                    value={item.title}
+                  >
+                    {item.title}
+                  </MenuItem>
+                ))}
               </Select>
             </div>
           </div>
