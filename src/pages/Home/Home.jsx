@@ -86,10 +86,20 @@ const Home = () => {
     menuItemStyle.fontSize = "10px";
   }
 
+  const containerStyle = {
+    height: "100vh",
+    backgroundImage: `url(${doska})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  };
+
+  // Создайте переменную для хранения предыдущего дня недели
+  let prevDayOfWeek = "";
+
   return (
     <>
-      <div className={home.section}>
-        <img className={home.mainBG} src={doska} alt="" />
+      <div className={home.section} style={containerStyle}>
         <div className={home.container}>
           <h3>Расписание учебного заведения</h3>
 
@@ -129,37 +139,57 @@ const Home = () => {
               );
               return (
                 <div key={day}>
-                  {sortedData.map((item, index) => (
-                    <div key={item.id}>
-                      <div>
-                        <p className={home.infoDay}>{item.day}</p>
-                      </div>
-                      {index === 0 && (
+                  {sortedData.map((item, index) => {
+                    // Определите текущий день недели
+                    const currentDay = item.day;
+
+                    // Проверьте, был ли день недели уже отображен
+                    const isFirstLessonOfDay = currentDay !== prevDayOfWeek;
+
+                    // Обновите предыдущий день недели
+                    prevDayOfWeek = currentDay;
+
+                    return (
+                      <div key={item.id}>
+                        {isFirstLessonOfDay && (
+                          <div>
+                            <p className={home.infoDay}>{item.day}</p>
+                          </div>
+                        )}
+                        {index === 0 && (
+                          <div className={home.schedule}>
+                            <div className={home.lesson}>УРОК</div>
+                            <div className={home.time}>ВРЕМЯ</div>
+                            <div className={home.subject}>ПРЕДМЕТ</div>
+                            <div className={home.mentor}>ПРЕПОДАВАТЕЛЬ</div>
+                            <div className={home.room}>КАБИНЕТ</div>
+                          </div>
+                        )}
                         <div className={home.schedule}>
-                          <div className={home.lesson}>УРОК</div>
-                          <div className={home.time}>ВРЕМЯ</div>
-                          <div className={home.subject}>ПРЕДМЕТ</div>
-                          <div className={home.mentor}>ПРЕПОДАВАТЕЛЬ</div>
-                          <div className={home.room}>КАБИНЕТ</div>
+                          <div className={home.lesson}>
+                            {item.lesson_time.lessons}
+                          </div>
+                          <div className={home.time}>
+                            {item.lesson_time.time}
+                          </div>
+                          <div className={home.subject}>
+                            {item.subject.title}
+                          </div>
+                          <div className={home.mentor}>
+                            {item.teacher
+                              .map((teacher) => teacher.fullname)
+                              .join(", ")}
+                          </div>
+                          <div className={home.room}>
+                            {item.classroom
+                              .map((room) => room.title)
+                              .join(", ")}
+                          </div>
                         </div>
-                      )}
-                      <div className={home.schedule}>
-                        <div className={home.lesson}>
-                          {item.lesson_time.lessons}
-                        </div>
-                        <div className={home.time}>{item.lesson_time.time}</div>
-                        <div className={home.subject}>{item.subject.title}</div>
-                        <div className={home.mentor}>
-                          {item.teacher
-                            .map((teacher) => teacher.fullname)
-                            .join(", ")}
-                        </div>
-                        <div className={home.room}>
-                          {item.classroom.map((room) => room.title).join(", ")}
-                        </div>
+                        <div className={home.lessonLine} />
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               );
             })}

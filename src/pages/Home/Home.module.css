@@ -8,17 +8,13 @@
     margin: 0 auto;
     padding: 10px; 
     position: relative;
-    z-index: 1; 
   }
   
   .mainBG {
     width: 100%;
     height: auto;
     object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
+    
   }
   
   .txt {
@@ -87,6 +83,11 @@
     border-right: none;
   }
 
+  .lessonLine {
+    border-top: 1px solid #ccc; /* Выберите цвет и стиль линии по вашему усмотрению */
+    margin-top: 10px; /* Расстояние между уроками */
+  }
+
   
   
   h3 {
@@ -97,6 +98,10 @@
     padding: 20px 0;
     background-color: rgba(0, 0, 0, 0.3); 
     border-radius: 8px; 
+  }
+
+  .lesson{
+    font-size: 40px;
   }
 
   .time{
