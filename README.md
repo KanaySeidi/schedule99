@@ -29,15 +29,15 @@ npm start
 После выполнения этой команды, приложение будет доступно по адресу http://localhost:3000.
 
 Основные функции
-getIdGroup()
+getIdGroup
 Делает запрос на сервер чтобы получить все существующие группы и их id
 
-Скриншот getIdGroup()!![Alt text](image-2.png)
+Скриншот getIdGroup!![Alt text](image-2.png)
 
-getSchedule()
+getSchedule
 Делает запрос на сервер чтобы получить по id расписание этой группы
 
-Скриншот getSchedule()![Alt text](image-1.png)
+Скриншот getSchedule![Alt text](image-1.png)
 
 ...
 

@@ -8,6 +8,7 @@
     margin: 0 auto;
     padding: 10px; 
     position: relative;
+
   }
   
   .mainBG {
@@ -100,11 +101,11 @@
     border-radius: 8px; 
   }
 
-  .lesson{
+  .lesson1{
     font-size: 40px;
   }
 
-  .time{
+  .time1{
     font-size: 40px;
   }
 
