@@ -32,7 +32,7 @@ npm start
 getIdGroup()
 Делает запрос на сервер чтобы получить все существующие группы и их id
 
-Скриншот getIdGroup()![Alt text](image.png)
+Скриншот getIdGroup()!![Alt text](image-2.png)
 
 getSchedule()
 Делает запрос на сервер чтобы получить по id расписание этой группы
