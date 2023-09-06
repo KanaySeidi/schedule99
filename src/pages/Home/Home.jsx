@@ -6,6 +6,7 @@ import { MenuItem, Select } from "@mui/material";
 import { getSchedule } from "../../api/getSchedule";
 import { useDispatch, useSelector } from "react-redux";
 import { getIdGroup } from "../../api/getIdGroup";
+import Cookies from "js-cookie";
 
 const Home = () => {
   const [selectedGroup, setSelectedGroup] = useState("Группа");
@@ -27,18 +28,26 @@ const Home = () => {
 
   const handleGroupChange = (event) => {
     const newSelectedGroup = event.target.value;
+    console.log(newSelectedGroup);
     setSelectedGroup(newSelectedGroup);
+    Cookies.set("lastSelectedGroup", newSelectedGroup, { expires: 2 });
   };
 
+  const lastSelectedGroup = Cookies.get("lastSelectedGroup");
   useEffect(() => {
     dispatch(getIdGroup());
-  }, []);
-
-  useEffect(() => {
-    if (id !== undefined) {
-      dispatch(getSchedule({ groupId: id }));
+    if (lastSelectedGroup) {
+      setSelectedGroup(lastSelectedGroup);
+      const selectedGroup = idGroup.find(
+        (item) => item.title === lastSelectedGroup
+      );
+      if (selectedGroup) {
+        const groupId = selectedGroup.id;
+        setId(groupId);
+        dispatch(getSchedule({ groupId }));
+      }
     }
-  }, [id]);
+  }, [idGroup, lastSelectedGroup]);
 
   const selectGroup = {
     color: "white",
