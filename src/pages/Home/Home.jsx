@@ -94,12 +94,12 @@ const Home = () => {
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
-    minHeight: "100vh", // Установка фиксированной высоты для фона
+    minHeight: "100vh",
   };
 
   const contentStyle = {
-    maxHeight: "100%", // Установка максимальной высоты для содержимого
-    overflowY: "auto", // Разрешение прокрутки содержимого, если оно не помещается на экране
+    maxHeight: "100%",
+    overflowY: "auto",
   };
 
   let prevDayOfWeek = "";

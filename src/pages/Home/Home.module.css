@@ -86,8 +86,8 @@
   }
 
   .lessonLine {
-    border-top: 1px solid #ccc; /* Выберите цвет и стиль линии по вашему усмотрению */
-    margin-top: 10px; /* Расстояние между уроками */
+    border-top: 1px solid #ccc;
+    margin-top: 10px; 
   }
 
   
