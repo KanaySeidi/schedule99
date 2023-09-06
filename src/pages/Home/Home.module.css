@@ -2,6 +2,7 @@
     width: 100%;
     height: 100%;
     position: relative;
+
 }
   .container {
     width: 1000px;
@@ -104,6 +105,8 @@
   .lesson1{
     font-size: 40px;
   }
+
+  
 
   .time1{
     font-size: 40px;

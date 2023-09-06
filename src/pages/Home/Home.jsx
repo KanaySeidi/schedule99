@@ -45,11 +45,8 @@ const Home = () => {
       );
       if (selectedGroup) {
         const groupId = selectedGroup.id;
-
-        if (idGroup.some((item) => item.id === groupId)) {
-          setId(groupId);
-          dispatch(getSchedule({ groupId }));
-        }
+        setId(groupId);
+        dispatch(getSchedule({ groupId }));
       }
     }
   }, [idGroup, lastSelectedGroup]);
@@ -92,16 +89,27 @@ const Home = () => {
   }
 
   const containerStyle = {
-    height: "100%",
+    minHeighteight: "100%",
     backgroundImage: `url(${doska})`,
     backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    minHeight: "100vh", // Установка фиксированной высоты для фона
   };
+
+  const contentStyle = {
+    maxHeight: "100%", // Установка максимальной высоты для содержимого
+    overflowY: "auto", // Разрешение прокрутки содержимого, если оно не помещается на экране
+  };
+
+  let prevDayOfWeek = "";
 
   return (
     <>
       <div className={home.section} style={containerStyle}>
-        <div className={home.container}>
+        <div className={home.container} style={contentStyle}>
           <h3>Расписание учебного заведения</h3>
+
           <div className={home.currentTime}>
             <CityTime city="Бишкек" timeZoneOffset={0} />
           </div>
@@ -112,7 +120,7 @@ const Home = () => {
                 style={selectGroup}
                 value={selectedGroup}
                 onChange={handleGroupChange}
-                defaultValue="Группа"
+                defaultValue="default"
               >
                 <MenuItem style={menuItemStyle} value="Группа" disabled>
                   Группа
@@ -138,40 +146,53 @@ const Home = () => {
               );
               return (
                 <div key={day}>
-                  {sortedData.map((item, index) => (
-                    <div key={item.id}>
-                      <div>
-                        <p className={home.infoDay}>{item.day}</p>
-                      </div>
-                      {index === 0 && (
+                  {sortedData.map((item, index) => {
+                    const currentDay = item.day;
+
+                    const isFirstLessonOfDay = currentDay !== prevDayOfWeek;
+
+                    prevDayOfWeek = currentDay;
+
+                    return (
+                      <div key={item.id}>
+                        {isFirstLessonOfDay && (
+                          <div>
+                            <p className={home.infoDay}>{item.day}</p>
+                          </div>
+                        )}
+                        {index === 0 && (
+                          <div className={home.schedule}>
+                            <div className={home.lesson}>УРОК</div>
+                            <div className={home.time}>ВРЕМЯ</div>
+                            <div className={home.subject}>ПРЕДМЕТ</div>
+                            <div className={home.mentor}>ПРЕПОДАВАТЕЛЬ</div>
+                            <div className={home.room}>КАБИНЕТ</div>
+                          </div>
+                        )}
                         <div className={home.schedule}>
-                          <div className={home.lesson}>УРОК</div>
-                          <div className={home.time}>ВРЕМЯ</div>
-                          <div className={home.subject}>ПРЕДМЕТ</div>
-                          <div className={home.mentor}>ПРЕПОДАВАТЕЛЬ</div>
-                          <div className={home.room}>КАБИНЕТ</div>
-                        </div>
-                      )}
-                      <div className={home.schedule}>
-                        <div className={home.lesson1}>
-                          {item.lesson_time.lessons}
-                        </div>
-                        <div className={home.time1}>
-                          {item.lesson_time.time}
-                        </div>
-                        <div className={home.subject}>{item.subject.title}</div>
-                        <div className={home.mentor}>
-                          {item.teacher
-                            .map((teacher) => teacher.fullname)
-                            .join(", ")}
-                        </div>
-                        <div className={home.room}>
-                          {item.classroom.map((room) => room.title).join(", ")}
+                          <div className={home.lesson}>
+                            {item.lesson_time.lessons}
+                          </div>
+                          <div className={home.time}>
+                            {item.lesson_time.time}
+                          </div>
+                          <div className={home.subject}>
+                            {item.subject.title}
+                          </div>
+                          <div className={home.mentor}>
+                            {item.teacher
+                              .map((teacher) => teacher.fullname)
+                              .join(", ")}
+                          </div>
+                          <div className={home.room}>
+                            {item.classroom
+                              .map((room) => room.title)
+                              .join(", ")}
+                          </div>
                         </div>
                       </div>
-                      <div className={home.lessonLine} />
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               );
             })}
